@@ -58,9 +58,9 @@ def teisendus():
     print("MeasurePerfect")
     tüüp = input("Millist teisendust soovid teha(e.g. massid, mahud): ")
     if tüüp == "mahud":
-        main_volume
+        main_volume()
     elif tüüp == "massid":
-        main_massid
+        main_massid()
     else:
         print("Sellist teisendust ei suuda see programm veel teha")
 
