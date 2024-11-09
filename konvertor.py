@@ -42,13 +42,13 @@ def main_volume():
     tulemus = teisenda_mahud(arv, ühikust, ühikusse, süsteemist,süsteemi)
     if tulemus is not None:
         if süsteemist == "metric" and süsteemi == "metric":
-            print(f"{arv} {ühikust} = {tulemus} {ühikusse}")
+            print(f"{arv} {ühikust} = {round(tulemus, 6)} {ühikusse}")
         elif süsteemist != "metric" and süsteemi == "metric":
-            print(f"{arv} {süsteemist} {ühikust} = {tulemus} {ühikusse}")
+            print(f"{arv} {süsteemist} {ühikust} = {round(tulemus, 6)} {ühikusse}")
         elif süsteemist == "metric" and süsteemi != "metric":
-            print(f"{arv} {ühikust} = {tulemus} {süsteemi} {ühikusse}")
+            print(f"{arv} {ühikust} = {round(tulemus, 6)} {süsteemi} {ühikusse}")
         else:
-            print(f"{int(arv)} {süsteemist} {ühikust} = {round(tulemus, 6)} {süsteemi} {ühikusse}")
+            print(f"{arv} {süsteemist} {ühikust} = {round(tulemus, 6)} {süsteemi} {ühikusse}")
 
 def main_massid():
     arv = float(input("Sisesta arv mida tahad teisendada: "))
