@@ -23,6 +23,14 @@ def teisenda_mahud(arv, ühikust, ühikusse, süsteemist, süsteemi):
         tuletis_dict = us_to_imperial
     elif süsteemist == "US" and süsteemi == "US":
         tuletis_dict = us_to_us
+    elif süsteemist == "massmetric" and süsteemi == "massmetric":
+        tuletis_dict == massmetric_to_massmetric
+    elif süsteemist == "UK-US" and süsteemi == "massmetric":
+        tuletis_dict == UK_US_to_metric
+    elif süsteemist == "massmetric" and süsteemi == "UK-US":
+        tuletis_dict == metric_to_UK_US
+    elif süsteemist == "UK-US" and süsteemi == "UK-US":
+        tuletis_dict == UK_US_to_UK_US
     else:
         return None
     
@@ -35,7 +43,7 @@ def teisenda_mahud(arv, ühikust, ühikusse, süsteemist, süsteemi):
 def main_volume():
     arv = float(input("Sisesta arv mida tahad teisendada: "))
     ühikust = input("Sisesta ühik milles arv on(e.g., l, gallons, cups): ").strip()
-    ühikusse = input("Sisesta milleks tahad arvu teisendada: ").strip()
+    ühikusse = input("Sisesta milliseks ühikuks tahad arvu teisendada: ").strip()
     süsteemist = input("Millises süsteemis on algne arv(US, imperial, metric): ").strip()
     süsteemi = input("Millisesse süsteemi tahad teisendada: ").strip()
 
@@ -52,7 +60,21 @@ def main_volume():
 
 def main_massid():
     arv = float(input("Sisesta arv mida tahad teisendada: "))
-    #siia tuleb massi kalkulaator
+    ühikust = input("Sisesta ühik milles arv on(e.g., mg, g, kg, oz, lb): ").strip()
+    ühikusse = input("Sisesta milliseks ühikuks tahad arvu teisendada: ").strip()
+    süsteemist = input("Millises süsteemis on algne arv(UK-US, massmetric): ").strip()
+    süsteemi = input("Millisesse süsteemi tahad teisendada: ").strip()
+
+    tulemus = teisenda_mahud(arv, ühikust, ühikusse, süsteemist,süsteemi)
+    if tulemus is not None:
+        if süsteemist == "massmetric" and süsteemi == "massmetric":
+            print(f"{arv} {ühikust} = {round(tulemus, 6)} {ühikusse}")
+        elif süsteemist != "massmetric" and süsteemi == "massmetric":
+            print(f"{arv} {süsteemist} {ühikust} = {round(tulemus, 6)} {ühikusse}")
+        elif süsteemist == "massmetric" and süsteemi != "massmetric":
+            print(f"{arv} {ühikust} = {round(tulemus, 6)} {süsteemi} {ühikusse}")
+        else:
+            print(f"{arv} {süsteemist} {ühikust} = {round(tulemus, 6)} {süsteemi} {ühikusse}")
 
 def teisendus():
     print("MeasurePerfect")
