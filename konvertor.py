@@ -1,6 +1,27 @@
 from mahud import *
 from massid import *
 
+################################################
+# Programmeerimine I
+# 2024/2025 sügissemester
+#
+# MeasurePerfect
+# Teema: möötühikute teisendus kalkulaator
+#
+#
+# Autorid: Karel Konga, Triin-Elis Kuum
+#
+# eeskuju: google'i standartne teisendus tööriist ja teisendus kalkulaatori veebilehed (nt. unitconverters.net)
+#
+# Lisakommentaar (nt käivitusjuhend): käivitada tuleb sellest failist teised on sõnastikud kalkulaatorile, 
+# Hetkel kasutatavad teisendused on järgmiste ühikute vahel: 
+# Metric: l, dl, cl, ml; 
+# US: gallons, quarts, pints, cups, fl_oz, tablespoons, teaspoons; 
+# Imperial: gallons, quarts, pints, cups, fl_oz, tablespoons, teaspoons
+# NB! hetkel massi kalkulaator ei tööta palun kasutage ainult mahu kalkulaatorit
+#
+##################################################
+
 def teisenda_mahud(arv, ühikust, ühikusse, süsteemist, süsteemi):
 
     teisendus_võti = f"{ühikust}_to_{ühikusse}"
