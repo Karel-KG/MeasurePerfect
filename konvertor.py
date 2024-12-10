@@ -47,9 +47,9 @@ def teisenda_mahud(arv, ühikust, ühikusse, süsteemist, süsteemi):
     elif süsteemist == "massmetric" and süsteemi == "massmetric":
         tuletis_dict == massmetric_to_massmetric
     elif süsteemist == "UK-US" and süsteemi == "massmetric":
-        tuletis_dict == UK_US_to_metric
+        tuletis_dict == UK_US_to_massmetric
     elif süsteemist == "massmetric" and süsteemi == "UK-US":
-        tuletis_dict == metric_to_UK_US
+        tuletis_dict == massmetric_to_UK_US
     elif süsteemist == "UK-US" and süsteemi == "UK-US":
         tuletis_dict == UK_US_to_UK_US
     else:
