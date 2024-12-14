@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-# Conversion factors for different categories
+# Konverteerimis tabelid
 conversion_factors = {
     "Length": {
         "Kilometre": {"Kilometre": 1, "Metre": 1000, "Centimetre": 100000, "Millimetre": 1e6, "Micrometre": 1e9, "Nanometre": 1e12, "Mile": 0.621371, "Yard": 1093.61, "Foot": 3280.84, "Inch": 39370.1, "Nautical mile": 0.539957},
@@ -48,7 +48,7 @@ conversion_factors = {
         "Imperial teaspoon": {"US liquid gallon": 0.00156374, "US liquid quart": 0.00625497, "US liquid pint": 0.0125099, "US legal cup": 0.0250197, "US fluid ounce": 0.200158, "US tablespoon": 0.400317, "US teaspoon": 1.20095, "Cubic meter": 5.91939e-06, "Liter": 0.00591939, "Milliliter": 5.91939, "Imperial gallon": 0.00130208, "Imperial quart": 0.00520833, "Imperial pint": 0.0104167, "Imperial cup": 0.0208333, "Imperial fluid ounce": 0.208333, "Imperial tablespoon": 0.333333, "Imperial teaspoon": 1, "Cubic foot": 0.000209039, "Cubic inch": 0.361224},
         "Cubic foot": {"US liquid gallon": 7.48052, "US liquid quart": 29.9221, "US liquid pint": 59.8442, "US legal cup": 119.688, "US fluid ounce": 957.506, "US tablespoon": 1915.01, "US teaspoon": 5745.04, "Cubic meter": 0.0283168, "Liter": 28.3168, "Milliliter": 28316.8, "Imperial gallon": 6.22884, "Imperial quart": 24.9153, "Imperial pint": 49.8307, "Imperial cup": 99.6614, "Imperial fluid ounce": 996.614, "Imperial tablespoon": 1594.58, "Imperial teaspoon": 4783.75, "Cubic foot": 1, "Cubic inch": 1728},
         "Cubic inch": {"US liquid gallon": 0.004329, "US liquid quart": 0.017316, "US liquid pint": 0.034632, "US legal cup": 0.0682794, "US fluid ounce": 0.554113, "US tablespoon": 1.10823, "US teaspoon": 3.32468, "Cubic meter": 1.6387e-5, "Liter": 0.0163871, "Milliliter": 16.3871, "Imperial gallon": 0.00360465, "Imperial quart": 0.0144186, "Imperial pint": 0.0288372, "Imperial cup": 0.0576744, "Imperial fluid ounce": 0.576744, "Imperial tablespoon": 0.92279, "Imperial teaspoon": 2.76837, "Cubic foot": 0.000578704, "Cubic inch": 1},
-    }# Add more categories as needed
+    }# võib lihtsalt lisada samamoodi veel tabeleid
 }
 
 def convert_units(category, entry, from_var, to_var, result_label):
@@ -64,37 +64,37 @@ def convert_units(category, entry, from_var, to_var, result_label):
     except KeyError:
         result_label.config(text="Kehtetu teisendus")
 
-# Set up the main window
+# Main ekraani set up
 root = tk.Tk()
 root.title("Measure Perfect")
 
-# Create notebook for tabs
+# Tab'ide notebook
 notebook = ttk.Notebook(root)
 notebook.pack(expand=True, fill="both")
 
-# Function to create a tab
+# Tab'i tegemis funktsioon
 def create_conversion_tab(category):
     tab = ttk.Frame(notebook)
     notebook.add(tab, text=category)
 
-    # Input field
+    # Input sektsioon
     tk.Label(tab, text="Enter value:").grid(row=0, column=0, padx=10, pady=5)
     entry = tk.Entry(tab)
     entry.grid(row=0, column=1, padx=10, pady=5)
 
-    # From unit dropdown
+    # From ühiku dropdown
     tk.Label(tab, text="From:").grid(row=1, column=0, padx=10, pady=5)
     from_var = tk.StringVar(value=list(conversion_factors[category].keys())[0])
     from_menu = ttk.Combobox(tab, textvariable=from_var, values=list(conversion_factors[category].keys()))
     from_menu.grid(row=1, column=1, padx=10, pady=5)
 
-    # To unit dropdown
+    # To ühiku dropdown
     tk.Label(tab, text="To:").grid(row=2, column=0, padx=10, pady=5)
     to_var = tk.StringVar(value=list(conversion_factors[category].keys())[0])
     to_menu = ttk.Combobox(tab, textvariable=to_var, values=list(conversion_factors[category].keys()))
     to_menu.grid(row=2, column=1, padx=10, pady=5)
 
-    # Convert button
+    # Convert nupp
     result_label = tk.Label(tab, text="Converted: ", font=("Arial", 14))
     result_label.grid(row=4, column=0, columnspan=2, pady=10)
 
@@ -104,9 +104,9 @@ def create_conversion_tab(category):
     )
     convert_button.grid(row=3, column=0, columnspan=2, pady=10)
 
-# Create tabs for each category
+# teeb tabid igale conversionile
 for category in conversion_factors.keys():
     create_conversion_tab(category)
 
-# Run the Tkinter event loop
+# runnib tkinteri mainloopi
 root.mainloop()
