@@ -72,7 +72,7 @@ massmetric_to_massmetric = {
     'g_mg': g_mg
 }
 
-UK_US_to_metric = {
+UK_US_to_massmetric = {
     'lb_g': lb_g,
     'oz_g': oz_g,
     'lb_kg': lb_kg,
@@ -81,7 +81,7 @@ UK_US_to_metric = {
     'oz_mg': oz_mg
 }
 
-metric_to_UK_US = {
+massmetric_to_UK_US = {
     'g_lb': g_lb,
     'g_oz': g_oz,
     'kg_lb': kg_lb,
