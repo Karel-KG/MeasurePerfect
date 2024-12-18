@@ -1,6 +1,20 @@
 import tkinter as tk
 from tkinter import ttk
 
+################################################
+# Programmeerimine I
+# 2024/2025 sügissemester
+#
+# MeasurePerfect
+# Teema: möötühikute teisendus kalkulaator
+#
+#
+# Autorid: Karel Konga, Triin-Elis Kuum
+#
+# eeskuju: google'i standartne teisendus tööriist ja teisendus kalkulaatori veebilehed (nt. unitconverters.net)
+#
+##################################################
+#
 # Konverteerimis tabelid
 conversion_factors = {
     "Length": {
