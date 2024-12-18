@@ -177,64 +177,73 @@ conversion_factors = {
 }
 
 def convert_units(category, entry, from_var, to_var, result_label):
+    # Püüa teisendada sisestatud väärtus
     try:
-        value = float(entry.get())
-        from_unit = from_var.get()
-        to_unit = to_var.get()
-        factor = conversion_factors[category][from_unit][to_unit]
-        result = value * factor
-        result_label.config(text=f"Converted: {result:.4f} {to_unit}")
+        value = float(entry.get())  # Loeb kasutaja sisestatud väärtuse
+        from_unit = from_var.get()  # Valitud lähteühik
+        to_unit = to_var.get()  # Valitud sihtühik
+        factor = conversion_factors[category][from_unit][to_unit]  # Teisendustegur
+        result = value * factor  # Tulemus
+        result_label.config(text=f"Converted: {result:.4f} {to_unit}")  # Kuvab tulemuse
     except ValueError:
-        result_label.config(text="Palun sisesta päris number")
+        result_label.config(text="Palun sisesta päris number")  # vale sisend
     except KeyError:
-        result_label.config(text="Kehtetu teisendus")
+        result_label.config(text="Kehtetu teisendus")  # vigane teisendus
 
-# Main ekraani set up
-root = tk.Tk()
-root.title("Measure Perfect")
+# Peamenüü seadistamine
+root = tk.Tk()  
+root.title("Measure Perfect")  
 
-# Tab'ide notebook
-notebook = ttk.Notebook(root)
-notebook.grid(row=0, column=0, sticky="nsew")
+# Loob rippmenüü teisenduse valimiseks
+selected_category = tk.StringVar(value=list(conversion_factors.keys())[0])  # Vaikimisi valitud kategooria "Length"
+category_menu = ttk.Combobox(root, textvariable=selected_category, values=list(conversion_factors.keys()))  # Loob rippmenüü
+category_menu.grid(row=0, column=0, padx=10, pady=10)  
 
-# Tab'i tegemis funktsioon
-def create_conversion_tab(category):
-    tab = ttk.Frame(notebook)
-    notebook.add(tab, text=category)
-    
-    # Loome ühe konteineri, et kõik elemendid oleksid keskel
-    input_frame = ttk.Frame(tab)
-    input_frame.pack(expand=True)  # Kasutame pack() et kõik elemendid oleksid keskel
-    
-    # Paigutame kõik elemendid üksteise kõrvale
+# teisenduse kasutajaliides
+display_frame = ttk.Frame(root)
+display_frame.grid(row=1, column=0, sticky="nsew")
+
+# Funktsioon kategooria vahetamiseks
+def show_conversion_tab(category):
+    for widget in display_frame.winfo_children():
+        widget.destroy() 
+    create_conversion_tab(category, display_frame) 
+
+# Funktsioon teisendus
+def create_conversion_tab(category, parent_frame):
+    input_frame = ttk.Frame(parent_frame) 
+    input_frame.pack(expand=True) 
+
+    # Sisendväljade ja siltide loomine
     tk.Label(input_frame, text="Enter value:").grid(row=0, column=0, padx=10, pady=5)
     entry = tk.Entry(input_frame)
     entry.grid(row=0, column=1, padx=10, pady=5)
-    
+
     tk.Label(input_frame, text="From:").grid(row=1, column=0, padx=10, pady=5)
-    from_var = tk.StringVar(value=list(conversion_factors[category].keys())[0])
-    from_menu = ttk.Combobox(input_frame, textvariable=from_var, values=list(conversion_factors[category].keys()))
-    from_menu.grid(row=1, column=1, padx=10, pady=5)
-    
+    from_var = tk.StringVar(value=list(conversion_factors[category].keys())[0])  # Vaikimisi lähteühik
+    from_menu = ttk.Combobox(input_frame, textvariable=from_var, values=list(conversion_factors[category].keys()))  # Lähteühiku rippmenüü
+    from_menu.grid(row=1, column=1, padx=10, pady=5) 
+
     tk.Label(input_frame, text="To:").grid(row=2, column=0, padx=10, pady=5)
-    to_var = tk.StringVar(value=list(conversion_factors[category].keys())[0])
-    to_menu = ttk.Combobox(input_frame, textvariable=to_var, values=list(conversion_factors[category].keys()))
+    to_var = tk.StringVar(value=list(conversion_factors[category].keys())[0])  # Vaikimisi sihtühik
+    to_menu = ttk.Combobox(input_frame, textvariable=to_var, values=list(conversion_factors[category].keys()))  # Sihtühiku rippmenüü
     to_menu.grid(row=2, column=1, padx=10, pady=5)
-    
-    # Convert nupp ja tulemus
-    result_frame = ttk.Frame(tab)
-    result_frame.pack(expand=True, fill="both")
 
-    convert_button = tk.Button(result_frame, text="Convert", command=lambda: convert_units(category, entry, from_var, to_var, result_label))
-    convert_button.pack(pady=10, anchor="center")
-    
-    result_label = tk.Label(result_frame, text="Converted: ", font=("Arial", 14))
-    result_label.pack(pady=10, anchor="center")
-    
-# teeb tabid igale conversionile
-for category in conversion_factors.keys():
-    create_conversion_tab(category)
+    # Tulemuse kuvamise ala
+    result_frame = ttk.Frame(parent_frame)  # Tulemusraam
+    result_frame.pack(expand=True, fill="both") 
 
-root.update()
-# runnib tkinteri mainloopi
+    convert_button = tk.Button(result_frame, text="Convert", command=lambda: convert_units(category, entry, from_var, to_var, result_label))  # Teisendamisnupp
+    convert_button.pack(pady=10, anchor="center") 
+
+    result_label = tk.Label(result_frame, text="Converted: ", font=("Arial", 14))  # Tulemuse silt
+    result_label.pack(pady=10, anchor="center") 
+
+# Rippmenüü valiku sidumine vastava kategooriaga
+category_menu.bind("<<ComboboxSelected>>", lambda event: show_conversion_tab(selected_category.get()))
+
+show_conversion_tab(selected_category.get())
+
+root.update()  # Uuenda akna paigutust
+# tkinteri põhitsükkel
 root.mainloop()
