@@ -181,40 +181,42 @@ root.title("Measure Perfect")
 
 # Tab'ide notebook
 notebook = ttk.Notebook(root)
-notebook.pack(expand=True, fill="both")
+notebook.grid(row=0, column=0, sticky="nsew")
 
 # Tab'i tegemis funktsioon
 def create_conversion_tab(category):
     tab = ttk.Frame(notebook)
     notebook.add(tab, text=category)
-
-    # Input sektsioon
-    tk.Label(tab, text="Enter value:").grid(row=0, column=0, padx=10, pady=5)
-    entry = tk.Entry(tab)
+    
+    # Loome ühe konteineri, et kõik elemendid oleksid keskel
+    input_frame = ttk.Frame(tab)
+    input_frame.pack(expand=True)  # Kasutame pack() et kõik elemendid oleksid keskel
+    
+    # Paigutame kõik elemendid üksteise kõrvale
+    tk.Label(input_frame, text="Enter value:").grid(row=0, column=0, padx=10, pady=5)
+    entry = tk.Entry(input_frame)
     entry.grid(row=0, column=1, padx=10, pady=5)
-
-    # From ühiku dropdown
-    tk.Label(tab, text="From:").grid(row=1, column=0, padx=10, pady=5)
+    
+    tk.Label(input_frame, text="From:").grid(row=1, column=0, padx=10, pady=5)
     from_var = tk.StringVar(value=list(conversion_factors[category].keys())[0])
-    from_menu = ttk.Combobox(tab, textvariable=from_var, values=list(conversion_factors[category].keys()))
+    from_menu = ttk.Combobox(input_frame, textvariable=from_var, values=list(conversion_factors[category].keys()))
     from_menu.grid(row=1, column=1, padx=10, pady=5)
-
-    # To ühiku dropdown
-    tk.Label(tab, text="To:").grid(row=2, column=0, padx=10, pady=5)
+    
+    tk.Label(input_frame, text="To:").grid(row=2, column=0, padx=10, pady=5)
     to_var = tk.StringVar(value=list(conversion_factors[category].keys())[0])
-    to_menu = ttk.Combobox(tab, textvariable=to_var, values=list(conversion_factors[category].keys()))
+    to_menu = ttk.Combobox(input_frame, textvariable=to_var, values=list(conversion_factors[category].keys()))
     to_menu.grid(row=2, column=1, padx=10, pady=5)
+    
+    # Convert nupp ja tulemus
+    result_frame = ttk.Frame(tab)
+    result_frame.pack(expand=True, fill="both")
 
-    # Convert nupp
-    result_label = tk.Label(tab, text="Converted: ", font=("Arial", 14))
-    result_label.grid(row=4, column=0, columnspan=2, pady=10)
-
-    convert_button = tk.Button(
-        tab, text="Convert",
-        command=lambda: convert_units(category, entry, from_var, to_var, result_label)
-    )
-    convert_button.grid(row=3, column=0, columnspan=2, pady=10)
-
+    convert_button = tk.Button(result_frame, text="Convert", command=lambda: convert_units(category, entry, from_var, to_var, result_label))
+    convert_button.pack(pady=10, anchor="center")
+    
+    result_label = tk.Label(result_frame, text="Converted: ", font=("Arial", 14))
+    result_label.pack(pady=10, anchor="center")
+    
 # teeb tabid igale conversionile
 for category in conversion_factors.keys():
     create_conversion_tab(category)
