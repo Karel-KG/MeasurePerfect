@@ -192,7 +192,7 @@ def convert_units(category, entry, from_var, to_var, result_label):
 
 # Peamenüü seadistamine
 root = tk.Tk()  
-root.title("Measure Perfect")  
+root.title("Measure Perfect")
 
 # Loob rippmenüü teisenduse valimiseks
 selected_category = tk.StringVar(value=list(conversion_factors.keys())[0])  # Vaikimisi valitud kategooria "Length"
@@ -211,8 +211,8 @@ def show_conversion_tab(category):
 
 # Funktsioon teisendus
 def create_conversion_tab(category, parent_frame):
-    input_frame = ttk.Frame(parent_frame) 
-    input_frame.pack(expand=True) 
+    input_frame = ttk.Frame(parent_frame)
+    input_frame.pack(expand=True)
 
     # Sisendväljade ja siltide loomine
     tk.Label(input_frame, text="Enter value:").grid(row=0, column=0, padx=10, pady=5)
