@@ -14,7 +14,7 @@ from tkinter import ttk
 # eeskuju: google'i standartne teisendus tööriist ja teisendus kalkulaatori veebilehed (nt. unitconverters.net)
 #
 ##################################################
-
+#
 # Konverteerimis tabelid
 conversion_factors = {
     "Length": {
